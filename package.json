@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-api-endpoint",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node-dev server"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "ejs": "^2.5.6",
+    "express": "~4.13.4",
+    "morgan": "~1.7.0",
+    "node-dev": "^3.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Torrichel/nodejs-api-endpoint.git"
+  },
+  "author": "Konstantin Kuksin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Torrichel/nodejs-api-endpoint/issues"
+  },
+  "homepage": "https://github.com/Torrichel/nodejs-api-endpoint#readme",
+  "description": ""
+}
