@@ -13,12 +13,10 @@
                 crossorigin="anonymous"></script>
 
 
-
         <script type="text/javascript" src="http://test.geotourizm.com/safari-reader.js"></script>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
-
 
             // Handling special Characters
             function escapeHtml(text) {
@@ -42,7 +40,6 @@
             };
 
             $("body").css({'opacity': 1, 'overflow': 'visible'}).html("<pre>"+JSON.stringify(myObject, null, "\t")+"</pre>");
-
 
 
         });

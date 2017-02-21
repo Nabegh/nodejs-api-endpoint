@@ -19,17 +19,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/*', function(req, res) {
 
-
     // Creating an object for URL handling
     var URL = {
       isURL: /^(ftp|http|https):\/\/[^ "]+$/.test(req.url.slice(14)),
       URL: req.url.slice(14),
-      HTML: null,
-      status: false
+      HTML: 'empty',
+      status: false,
+      host: req.headers.host
     };
 
-
-  if(URL.isURL){
+    // URL validation
+    if(URL.isURL){
 
       request(URL.URL, function (error, response, body) {
           if (!error && response.statusCode == 200) {
@@ -37,14 +37,12 @@ app.get('/*', function(req, res) {
               URL.status = true;
               res.render('pages/index', {result: URL});
           }
-
       });
 
   }
-  else {
-    var err = new Error("Not found!");
-    err.status = 404;
-    next(err);
+    else {
+      URL.HTML = 'empty';
+      res.render('pages/index', {result: URL});
   }
 
 
@@ -66,13 +64,9 @@ app.use(function(err, req, res, next) {
   }
   else {
       res.status(err.status || 500);
-      res.render('error', {
-          message: err.message,
-          error: {}
-      });
   }
 
 });
 
-app.listen(8080);
-console.log('8080 is the magic port');
+app.listen(80);
+console.log('80 is the magic port');
