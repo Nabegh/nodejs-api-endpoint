@@ -1,12 +1,52 @@
 <html>
     <head>
-        <title>NodeJS Api Endpoint</title>
+        <title>NodeJS API Endpoint</title>
     </head>
-    <body>
+    <body style="opacity: 0; overflow-y: hidden">
+
+    <%- result.HTML %>
 
 
 
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+                crossorigin="anonymous"></script>
 
-        <!--<script type="text/javascript" src="safari-reader.js"></script>-->
+
+
+        <script type="text/javascript" src="http://test.geotourizm.com/safari-reader.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            // Handling special Characters
+            function escapeHtml(text) {
+                return text
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+
+            var article = ReaderArticleFinderJS.findArticle();
+            var article_html = escapeHtml($('body').html());
+            var article_text = article.element.innerText;
+
+            var myObject = {
+                url: '<%- result.URL %>',
+                article_html: article_html,
+                article_text: article_text
+            };
+
+            $("body").css({'opacity': 1, 'overflow': 'visible'}).html("<pre>"+JSON.stringify(myObject, null, "\t")+"</pre>");
+
+
+
+        });
+    </script>
+
     </body>
 </html>

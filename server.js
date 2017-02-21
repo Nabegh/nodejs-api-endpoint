@@ -1,5 +1,5 @@
 var express = require('express');
-
+var request = require('request');
 
 var path = require('path');
 var logger = require('morgan');
@@ -16,14 +16,30 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-app.get('/url/*', function(req, res) {
 
-  function urlHandler(url) {
-      return /^(ftp|http|https):\/\/[^ "]+$/.test(url.slice(5));
-  }
+app.get('/*', function(req, res) {
 
-  if(urlHandler(req.url)){
-    console.log("it's url!");
+
+    // Creating an object for URL handling
+    var URL = {
+      isURL: /^(ftp|http|https):\/\/[^ "]+$/.test(req.url.slice(14)),
+      URL: req.url.slice(14),
+      HTML: null,
+      status: false
+    };
+
+
+  if(URL.isURL){
+
+      request(URL.URL, function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+              URL.HTML = body;
+              URL.status = true;
+              res.render('pages/index', {result: URL});
+          }
+
+      });
+
   }
   else {
     var err = new Error("Not found!");
@@ -31,7 +47,7 @@ app.get('/url/*', function(req, res) {
     next(err);
   }
 
-    res.render('pages/index');
+
 });
 
 app.use(express.static('public'));

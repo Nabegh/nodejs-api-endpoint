@@ -1,5 +1,5 @@
 
-var url = '/url/http://www.google.com'.slice(5);
+var url = '/endpoint?url=http://www.google.com'.slice(14);
 var urlValidation = /^(ftp|http|https):\/\/[^ "]+$/.test(url);
 // true
 
